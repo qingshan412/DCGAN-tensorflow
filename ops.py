@@ -94,7 +94,7 @@ def linear(input_, output_size, scope=None, stddev=0.02, bias_start=0.0, with_w=
   shape = input_.get_shape().as_list()
 
   ###J.L. 
-  print(shape[1])
+  print(shape)
   print(output_size)
   print('...')
   #exit(0)

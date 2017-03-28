@@ -75,16 +75,24 @@ class DCGAN(object):
     self.build_model()
 
   def build_model(self):
+    ###J.L. 
+    print(self.y_dim)
+    print(self.is_crop)
+
     if self.y_dim:
       self.y= tf.placeholder(tf.float32, [self.batch_size, self.y_dim], name='y')
 
     if self.is_crop:
       image_dims = [self.output_height, self.output_width, self.c_dim]
     else:
-      image_dims = [self.input_height, self.input_height, self.c_dim]
+      image_dims = [self.input_height, self.input_width, self.c_dim]
+      #J.L. image_dims = [self.input_height, self.input_height, self.c_dim]
 
     self.inputs = tf.placeholder(
       tf.float32, [self.batch_size] + image_dims, name='real_images')
+    ###J.L. 
+    print(self.inputs.get_shape().as_list())
+
     self.sample_inputs = tf.placeholder(
       tf.float32, [self.sample_num] + image_dims, name='sample_inputs')
 
@@ -105,9 +113,14 @@ class DCGAN(object):
           self.discriminator(self.G, self.y, reuse=True)
     else:
       self.G = self.generator(self.z)
+      ###J.L. 
+      print(self.G.get_shape().as_list())
+      print('descriminator_D:')
       self.D, self.D_logits = self.discriminator(inputs)
 
       self.sampler = self.sampler(self.z)
+      ###J.L. 
+      print('descriminator_G:')
       self.D_, self.D_logits_ = self.discriminator(self.G, reuse=True)
 
     self.d_sum = histogram_summary("d", self.D)
@@ -172,6 +185,9 @@ class DCGAN(object):
       sample_labels = data_y[0:self.sample_num]
     else:
       sample_files = data[0:self.sample_num]
+      print('sample_num:')
+      print(self.sample_num)
+      raw_input('...')
       sample = [
           get_image(sample_file,
                     input_height=self.input_height,
