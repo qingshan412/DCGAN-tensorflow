@@ -33,7 +33,7 @@ for Pic in PicFiles:
     ImPx = np.reshape(1*Px,(pic_per_Pic,-1))
     if count == 0:
         AllPx = ImPx
-    els0e:
+    else:
         AllPx = np.vstack((AllPx, ImPx))
 
 AllPxs = AllPx
@@ -55,6 +55,6 @@ for i in xrange(Nsensor):
 if not path.exists(args.ResultDir):
     os.makedirs(args.ResultDir)
 
-fo = open(path.join(args.ResultDir,'sensor_from_'+args.SampleDir),'w'
+fo = open(path.join(args.ResultDir,'sensor_from_'+args.SampleDir),'w')
 fo.write(','.join(Places))
 fo.close()
