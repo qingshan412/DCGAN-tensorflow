@@ -1,8 +1,8 @@
+from __future__ import division
 from PIL import Image
 from os import listdir, path
 #from os.path import isfile, join, exist
 import numpy as np
-from __future__ import division
 import argparse
 
 
@@ -26,7 +26,7 @@ threshold = 0.9
 ### Read Pixels Out
 count = 0
 for Pic in PicFiles:
-    Im = Image.open(Pic)
+    Im = Image.open(path.join(PicPath, Pic))
     Im = Im.convert('L')
     pic_per_Pic = Im.size(1)*Im.size(1)
     Px = np.asarray(Im) > threshold*255
