@@ -24,36 +24,38 @@ PicFiles = [ f for f in listdir(PicPath) if path.isfile(path.join(PicPath,f)) an
 
 print('There are ' + str(len(PicFiles)) + ' files')
 
-#px_per_pic = 1082
+px_per_pic = 1082
 Nsensor = 9
 threshold = args.Threshold
 
 ### Read Pixels Out
 countflag = 0
 for Pic in PicFiles:
-    tmp = Image.open(os.path.join(PicPath, Pic))
-    line3 = np.array(tmp)
-    line4 = line3 > .9*255
-    line4 = np.reshape(1*line4,(1082,))
-    #print(line4.size)
-    print(line4)
-    linemin = np.amin(line4)
-    linemax = np.amax(line4)
-    print(str(i) + ': min- ' + str(linemin) + ' max- ' + str(linemax))
-
+    Im = Image.open(path.join(PicPath, Pic))
+    Im = Im.convert('L')
+    pic_per_Pic = Im.size[1]*Im.size[1]
+    Px = np.asarray(Im) > threshold*255
+    ImPx = np.reshape(1*Px,(pic_per_Pic,-1))
     if countflag == 0:
-        AllPx = line4
+        AllPx = ImPx
     else:
-        AllPx = np.vstack((AllPx, line4))
-    #line3 = np.reshape(line3, (2,541))
-    #im = Image.fromarray(line3)
-    #im.save(str(i) + '.png')
+        AllPx = np.vstack((AllPx, ImPx))
     countflag = countflag + 1
-    #raw_input('...')
+    print(countflag)
 
-print('end_data')
+print(AllPx)
+print('Ouput size:')
+print(AllPx.shape)
 
 AllPxs = AllPx
+### Remove All 1's
+mask0 = np.zeros((AllPx.shape[0]))
+idxc = np.where(np.sum(AllPxs, axis=0) == AllPx.shape[0])
+if idxc[0].size > 0:
+    for i in xrange(idxc[0].size):
+        AllPxs[:,idxc[0][i]] = mask0
+
+### Place Sensors
 Places = []
 for i in xrange(Nsensor):
     ### Check Whether There Is Noise Left
@@ -73,6 +75,6 @@ for i in xrange(Nsensor):
 if not path.exists(args.ResultDir):
     makedirs(args.ResultDir)
 
-fo = open(path.join(args.ResultDir,'sensor_from_'+ path.basename(args.SampleDir) + '_' + str(threshold)),'w')
+fo = open(path.join(args.ResultDir,'sensor0_from_'+ path.basename(args.SampleDir) + '_' + str(threshold)),'w')
 fo.write(','.join(Places))
 fo.close()

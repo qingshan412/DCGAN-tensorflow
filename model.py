@@ -187,7 +187,7 @@ class DCGAN(object):
       sample_files = data[0:self.sample_num]
       print('sample_num:')
       print(self.sample_num)
-      raw_input('...')
+      #raw_input('...')
       sample = [
           get_image(sample_file,
                     input_height=self.input_height,
