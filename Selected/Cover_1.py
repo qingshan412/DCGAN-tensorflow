@@ -79,6 +79,7 @@ for i in xrange(len(Places)):
     fo.write(','.join(list(uni.astype(str))))
     fo.write('\n')
     fo.write(','.join(list(unicon.astype(str))))
+    fo.write('\n')
     print(uni)
     print(unicon)
     for item in uni:
