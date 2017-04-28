@@ -9,7 +9,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-s","--SampleDir", type=str,
                     help="directory for samples",
-                    default = 'samples/100o')
+                    default = '../data/1_s_4_p')
 parser.add_argument("-r","--ResultDir", type=str,
                     help="directory for samples",
                     default = 'sensors')
@@ -34,19 +34,21 @@ for Pic in PicFiles:
     tmp = Image.open(path.join(PicPath, Pic))
     print('\n\n\n' + str(countflag) + ':')
     line3 = np.array(tmp.convert('L'))
-    line3 = np.vsplit(line3, 8)
-    line4 = [np.hsplit(item, 8) for item in line3]
+    #line3 = np.vsplit(line3, 8)
+    #line4 = [np.hsplit(item, 8) for item in line3]
 
-    for i in xrange(len(line4)):
-        item = line4[i]
-        for j in xrange(len(item)):
-            if i == 0 and j == 0:
-                line5 = np.reshape(item[j],(1082, ))
-            else:
-                line5 = np.vstack((line5, np.reshape(item[j],(1082, ))))
+    #for i in xrange(len(line4)):
+    #    item = line4[i]
+    #    for j in xrange(len(item)):
+    #        if i == 0 and j == 0:
+    #            line5 = np.reshape(item[j],(1082, ))
+    #        else:
+    #            line5 = np.vstack((line5, np.reshape(item[j],(1082, ))))
             
-    line6 = line5 > threshold*255
+    line6 = line3 > threshold*255
     line6 = 1*line6
+    print(np.amax(line6))
+    print(np.amin(line6))
 
     if countflag == 0:
         AllPx = line6
@@ -66,7 +68,10 @@ for i in xrange(Nsensor):
         break
     print(str(i+1) + '-th sensor...')
     ### Select A Sensor
-    print(np.unique(np.sum(AllPxs, axis=0)))
+    uni, unicon = np.unique(np.sum(AllPxs, axis=0), return_counts=True)
+    print(uni)
+    print(unicon)
+    #print(np.unique(np.sum(AllPxs, axis=0)))
     idxc = np.argmax(np.sum(AllPxs, axis=0))
     print(idxc)
     Places.append(str(int(idxc)))
