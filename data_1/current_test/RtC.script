@@ -1,0 +1,10 @@
+#!/bin/csh
+
+#$ -M jliu16@nd.edu
+#$ -m abe
+#$ -pe mpi-24 24
+#$ -q long
+#$ -N IBM_RtC1
+
+module load python
+./test_ibm_4.py > recRtC1
