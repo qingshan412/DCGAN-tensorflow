@@ -101,7 +101,7 @@ for filename in FNames:
         linemax = np.amax(line1)
         #if linemax > 200:
         print(str(i) + ': min- ' + str(linemin) + ' max- ' + str(linemax))
-        line3 = line1.astype(np.uint8)
+        line3 = np.around(line1).astype(np.uint8)
         linemin = np.amin(line3)
         linemax = np.amax(line3)
         print(str(i) + ': min- ' + str(linemin) + ' max- ' + str(linemax))
