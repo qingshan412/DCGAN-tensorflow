@@ -65,7 +65,7 @@ for filename in FNames:
     node_time_list = Ext(FileName=filename)
     #node_time_array = np.asarray(node_time_list)
     print('Read in original file finished!')
-    time_node_array = np.transpose(node_time_list)
+    time_node_array = np.transpose(node_time_list).astype(np.float)
     print('Transpose finished!')
     max_value = np.amax(time_node_array)
     print('Maximum:' + str(max_value))
