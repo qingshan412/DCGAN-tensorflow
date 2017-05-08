@@ -55,7 +55,7 @@ def Ext(FileName):
 parser = argparse.ArgumentParser(description='Get the original file\'s folder')
 parser.add_argument("-f","--FileFolder", type=str,
                     help="directory for samples",
-                    default = '../SourceData')
+                    default = '../../SourceData')
 
 args = parser.parse_args()
 FPath = args.FileFolder
