@@ -4,6 +4,7 @@ samples
 *.zip
 logs
 test*
+*.png
 
 web/js/gen_layers.js
 
