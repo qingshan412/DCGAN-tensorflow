@@ -57,7 +57,7 @@ for Pic in PicFiles:
 
 print('end_data')
 
-fo0 = open(path.join(args.ResultDir,'process_sensor_from_'+ path.basename(args.SampleDir) + '_' + str(threshold)),'w')
+fo0 = open(path.join('process','process_sensor_from_'+ path.basename(args.SampleDir) + '_' + str(threshold)),'w')
 
 AllPxs = AllPx
 Places = []
