@@ -75,7 +75,8 @@ for i in xrange(len(Places)):
     fo.write(str(i+1) + '-th sensor...\n')
     print(str(i+1) + '-th sensor...')
     ### Select A Sensor
-    uni, unicon = np.unique(np.sum(AllPxs, axis=0), return_counts=True)
+    sumt = np.sum(AllPxs, axis=0)
+    uni, unicon = np.unique(sumt, return_counts=True)
     fo.write(','.join(list(uni.astype(str))))
     fo.write('\n')
     fo.write(','.join(list(unicon.astype(str))))
@@ -85,7 +86,7 @@ for i in xrange(len(Places)):
     for item in uni:
         if item > 0:
             fo.write(str(item) + ':\n')
-            fo.write(','.join(list(np.where(uni == item)[0].astype(str))))
+            fo.write(','.join(list(np.where(sumt == item)[0].astype(str))))
             fo.write('\n')
             print(str(item) + ':')
             print(np.where(uni == item)[0])
