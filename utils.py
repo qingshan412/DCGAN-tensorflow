@@ -239,4 +239,4 @@ def visualize(sess, dcgan, config, option):
       else:
         samples = sess.run(dcgan.sampler, feed_dict={dcgan.z: z_sample})
 
-      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/1kr/test_arange_%s.png' % (idx))
+      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_df32_1kr/test_arange_%s.png' % (idx))
