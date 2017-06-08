@@ -34,6 +34,7 @@ for Pic in PicFiles:
     tmp = Image.open(path.join(PicPath, Pic))
     print('\n\n\n' + str(countflag) + ':')
     line3 = np.array(tmp.convert('L'))
+    line3 = line3.flatten()
     #line3 = np.vsplit(line3, 8)
     #line4 = [np.hsplit(item, 8) for item in line3]
 
