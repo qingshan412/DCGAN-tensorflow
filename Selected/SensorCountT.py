@@ -64,7 +64,7 @@ AllPxs = AllPx
 Places = []
 for i in xrange(Nsensor):
     ### Check Whether There Is Noise Left
-    if AllPxs.size < 1:
+    if AllPxs.size < 1 or (not np.any(np.unique(np.sum(AllPxs, axis=0)))):
         print('All covered')
         break
     print(str(i+1) + '-th sensor...')
