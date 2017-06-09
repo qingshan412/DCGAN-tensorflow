@@ -1,6 +1,8 @@
 # Data
 data
 samples
+rec
+*.o*
 *.zip
 logs
 test*

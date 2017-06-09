@@ -1,0 +1,17 @@
+#!/bin/csh
+
+#$ -M jliu16@nd.edu	 # Email address for job notification
+#$ -m abe		 # Send mail when job begins, ends and aborts
+#$ -pe smp 4		 # Specify parallel environment and legal core size
+#$ -q gpu		 # Specify queue
+#$ -N test_s_epo50       # Specify job name
+
+module load python cuda/8.0 tensorflow/0.12-python2        # Required modules
+
+python SensorCount.py -s samples/s_epo50_100r
+
+python Cover_1.py -s ../data/ibmpg1t1/stest -r sensors/sensor_from_s_epo50_100r_0.9
+
+python SensorCount.py -s samples/s_epo50_1kr
+
+python Cover_1.py -s ../data/ibmpg1t1/stest -r sensors/sensor_from_s_epo50_1kr_0.9

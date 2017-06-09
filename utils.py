@@ -173,7 +173,8 @@ def visualize(sess, dcgan, config, option):
       else:
         samples = sess.run(dcgan.sampler, feed_dict={dcgan.z: z_sample})
 
-      save_images(samples, [image_frame_dim, image_frame_dim], './samples/test_arange_%s.png' % (idx))
+      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_epo100_100r/test_arange_%s.png' % (idx))
+      #save_images(samples, [image_frame_dim, image_frame_dim], './samples/test_arange_%s.png' % (idx))
   elif option == 2:
     values = np.arange(0, 1, 1./config.batch_size)
     for idx in [random.randint(0, 99) for _ in xrange(100)]:
@@ -239,4 +240,4 @@ def visualize(sess, dcgan, config, option):
       else:
         samples = sess.run(dcgan.sampler, feed_dict={dcgan.z: z_sample})
 
-      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_df32_1kr/test_arange_%s.png' % (idx))
+      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_epo100_1kr/test_arange_%s.png' % (idx))

@@ -1,0 +1,13 @@
+#!/bin/csh
+
+#$ -M jliu16@nd.edu	 # Email address for job notification
+#$ -m abe		 # Send mail when job begins, ends and aborts
+#$ -pe smp 4		 # Specify parallel environment and legal core size
+#$ -q gpu		 # Specify queue
+#$ -N epo50Get	         # Specify job name
+
+module load python cuda/8.0 tensorflow/0.12-python2        # Required modules
+
+python main_epo50.py --dataset ibmpg1t1/epo50strain --input_width=541 --output_width=541 --c_dim=1 > rec/rec_epo50Sample100
+
+python main_5_epo50.py --dataset ibmpg1t1/epo50strain --input_width=541 --output_width=541 --c_dim=1 > rec/rec_epo50Sample1k
