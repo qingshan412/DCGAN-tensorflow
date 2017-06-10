@@ -105,29 +105,24 @@ for Pic in PicFiles:
 print('end_data')
 
 AllPxs = AllPx
-Places = []
-for i in xrange(Nsensor):
-    ### Check Whether There Is Noise Left
-    if AllPxs.size < 1:
-        print('All covered')
-        break
-    print(str(i+1) + '-th sensor...')
-    ### Select A Sensor
-    uni, unicon = np.unique(np.sum(AllPxs, axis=0), return_counts=True)
-    print(uni)
-    print(unicon)
-    #print(np.unique(np.sum(AllPxs, axis=0)))
-    idxc = np.argmax(np.sum(AllPxs, axis=0))
-    print(idxc)
-    Places.append(str(int(idxc)))
-    col = AllPxs[:,idxc]
-    idxt = np.where(col==1)
-    AllPxs = np.delete(AllPxs, idxt[0], 0)
 
-### Store Results
-if not path.exists(args.ResultDir):
-    makedirs(args.ResultDir)
-
-fo = open(path.join(args.ResultDir,'sensor_from_'+ path.basename(args.SampleDir) + '_' + str(threshold)),'w')
-fo.write(','.join(Places))
-fo.close()
+sumPxs = np.sum(AllPxs, axis=0)
+uni, unicon = np.unique(sumPxs, return_counts=True)
+if (not np.any(uni)):
+    NewPxs = np.delete(AllPxs,np.where(sumPxs == 0),axis=1)
+    print(NewPxs.shape)
+    #for line in NewPxs:
+    #    line = np.reshape(line, (2,541))
+    #    im = Image.fromarray(line)
+    #    seed = np.random.random()
+    #    if seed < 0.5:
+    #        im.save(path.join(rtmpdirtr, str(i) + '.png'))
+    #    else:
+    #        im.save(path.join(rtmpdirte, str(i) + '.png'))
+        ### sequentially divide data into train and test datasets
+    #    if i%2 < 1:
+    #        im.save(path.join(stmpdirtr, str(i) + '.png'))
+    #    else:
+    #        im.save(path.join(stmpdirte, str(i) + '.png'))
+else:
+    print('No features to remove!')
