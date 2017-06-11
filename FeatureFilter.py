@@ -108,6 +108,7 @@ AllPxs = AllPx
 
 sumPxs = np.sum(AllPxs, axis=0)
 uni, unicon = np.unique(sumPxs, return_counts=True)
+print(uni)
 if (not np.any(uni)):
     NewPxs = np.delete(AllPxs,np.where(sumPxs == 0),axis=1)
     print(NewPxs.shape)
