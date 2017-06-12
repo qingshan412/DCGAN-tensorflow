@@ -51,8 +51,8 @@ for Pic in PicFiles:
             
     line6 = line3 > threshold*255
     line6 = 1*line6
-    print(np.amax(line6))
-    print(np.amin(line6))
+    #print(np.amax(line6))
+    #print(np.amin(line6))
 
     if countflag == 0:
         AllPx = line6
@@ -90,8 +90,8 @@ for Pic in PicFiles:
             
     line6 = line3 > threshold*255
     line6 = 1*line6
-    print(np.amax(line6))
-    print(np.amin(line6))
+    #print(np.amax(line6))
+    #print(np.amin(line6))
 
     #if countflag == 0:
     #    AllPx = line6
@@ -109,21 +109,28 @@ AllPxs = AllPx
 sumPxs = np.sum(AllPxs, axis=0)
 uni, unicon = np.unique(sumPxs, return_counts=True)
 print(uni)
+print(unicon)
 if (0 in uni):
     NewPxs = np.delete(AllPxs,np.where(sumPxs == 0),axis=1)
     print(NewPxs.shape)
-    #for line in NewPxs:
+    rtmpdirtr='data/ibmpg1t1/lrtr'
+    rtmpdirte='data/ibmpg1t1/lrte'
+    stmpdirtr='data/ibmpg1t1/lstr'
+    stmpdirte='data/ibmpg1t1/lste'
+    i = 0
+    for line in NewPxs:
     #    line = np.reshape(line, (2,541))
-    #    im = Image.fromarray(line)
-    #    seed = np.random.random()
-    #    if seed < 0.5:
-    #        im.save(path.join(rtmpdirtr, str(i) + '.png'))
-    #    else:
-    #        im.save(path.join(rtmpdirte, str(i) + '.png'))
+        im = Image.fromarray(line)
+        seed = np.random.random()
+        if seed < 0.5:
+            im.save(path.join(rtmpdirtr, str(i) + '.png'))
+        else:
+            im.save(path.join(rtmpdirte, str(i) + '.png'))
         ### sequentially divide data into train and test datasets
-    #    if i%2 < 1:
-    #        im.save(path.join(stmpdirtr, str(i) + '.png'))
-    #    else:
-    #        im.save(path.join(stmpdirte, str(i) + '.png'))
+        if i%2 < 1:
+            im.save(path.join(stmpdirtr, str(i) + '.png'))
+        else:
+            im.save(path.join(stmpdirte, str(i) + '.png'))
+        i = i + 1
 else:
     print('No features to remove!')

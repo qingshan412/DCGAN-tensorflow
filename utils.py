@@ -173,7 +173,8 @@ def visualize(sess, dcgan, config, option):
       else:
         samples = sess.run(dcgan.sampler, feed_dict={dcgan.z: z_sample})
 
-      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_epo' + str(config.epoch) + '_100r/test_arange_%s.png' % (idx))
+      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_100r_1/test_arange_%s.png' % (idx))
+      #save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_epo' + str(config.epoch) + '_100r/test_arange_%s.png' % (idx))
       #save_images(samples, [image_frame_dim, image_frame_dim], './samples/test_arange_%s.png' % (idx))
   elif option == 2:
     values = np.arange(0, 1, 1./config.batch_size)
@@ -240,4 +241,5 @@ def visualize(sess, dcgan, config, option):
       else:
         samples = sess.run(dcgan.sampler, feed_dict={dcgan.z: z_sample})
 
-      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_epo' + str(config.epoch) + '_1kr/test_arange_%s.png' % (idx))
+      save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_1kr_1/test_arange_%s.png' % (idx))
+      #save_images(samples, [image_frame_dim, image_frame_dim], './Selected/samples/s_epo' + str(config.epoch) + '_1kr/test_arange_%s.png' % (idx))
