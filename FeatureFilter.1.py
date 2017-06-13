@@ -6,7 +6,7 @@ import numpy as np
 import argparse
 
 
-AllPxs = np.load("AllPxs.npy")
+AllPxs = np.array(np.load("AllPxs.npy"))
 print('AllPxs:')
 print(AllPxs.dtype)
 print(AllPxs.shape)
