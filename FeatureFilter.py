@@ -105,7 +105,7 @@ for Pic in PicFiles:
 print('end_data')
 
 AllPxs = AllPx
-numpy.save("AllPxs.npy",AllPx)
+np.save("AllPxs.npy",AllPx)
 # numpy.load("filename")
 sumPxs = np.sum(AllPxs, axis=0)
 uni, unicon = np.unique(sumPxs, return_counts=True)
