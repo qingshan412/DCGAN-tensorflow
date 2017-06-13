@@ -24,7 +24,6 @@ PicFiles = [ f for f in listdir(PicPath) if path.isfile(path.join(PicPath,f)) an
 
 print('There are ' + str(len(PicFiles)) + ' files')
 
-#px_per_pic = 1082
 Nsensor = 9
 threshold = args.Threshold
 
@@ -34,18 +33,7 @@ for Pic in PicFiles:
     tmp = Image.open(path.join(PicPath, Pic))
     print('\n\n\n' + str(countflag) + ':')
     line3 = np.array(tmp.convert('L'))
-    line3 = line3.flatten()
-    #line3 = np.vsplit(line3, 8)
-    #line4 = [np.hsplit(item, 8) for item in line3]
-
-    #for i in xrange(len(line4)):
-    #    item = line4[i]
-    #    for j in xrange(len(item)):
-    #        if i == 0 and j == 0:
-    #            line5 = np.reshape(item[j],(1082, ))
-    #        else:
-    #            line5 = np.vstack((line5, np.reshape(item[j],(1082, ))))
-            
+    line3 = line3.flatten()      
     line6 = line3 > threshold*255
     line6 = 1*line6
     print(np.amax(line6))

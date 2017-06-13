@@ -106,7 +106,7 @@ print('end_data')
 
 AllPxs = AllPx
 np.save("AllPxs.npy",AllPx)
-# numpy.load("filename")
+# numpy.load("AllPxs.npy")
 sumPxs = np.sum(AllPxs, axis=0)
 uni, unicon = np.unique(sumPxs, return_counts=True)
 print(uni)
