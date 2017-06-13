@@ -37,27 +37,16 @@ for Pic in PicFiles:
     tmp = Image.open(path.join(PicPath, Pic))
     print('\n\n\n' + str(countflag) + ':')
     line3 = np.array(tmp.convert('L'))
-    line3 = line3.flatten()
-    #line3 = np.vsplit(line3, 8)
-    #line4 = [np.hsplit(item, 8) for item in line3]
-
-    #for i in xrange(len(line4)):
-    #    item = line4[i]
-    #    for j in xrange(len(item)):
-    #        if i == 0 and j == 0:
-    #            line5 = np.reshape(item[j],(1082, ))
-    #        else:
-    #            line5 = np.vstack((line5, np.reshape(item[j],(1082, ))))
-            
+    line3 = line3.flatten()            
     line6 = line3 > threshold*255
     line6 = 1*line6
-    #print(np.amax(line6))
-    #print(np.amin(line6))
 
     if countflag == 0:
         AllPx = line6
+        AllPxF = line3
     else:
         AllPx = np.vstack((AllPx, line6))
+        AllPxF = np.vstack((AllPxF, line3))
 
     countflag = countflag + 1
 
@@ -77,27 +66,12 @@ for Pic in PicFiles:
     print('\n\n\n' + str(countflag) + ':')
     line3 = np.array(tmp.convert('L'))
     line3 = line3.flatten()
-    #line3 = np.vsplit(line3, 8)
-    #line4 = [np.hsplit(item, 8) for item in line3]
-
-    #for i in xrange(len(line4)):
-    #    item = line4[i]
-    #    for j in xrange(len(item)):
-    #        if i == 0 and j == 0:
-    #            line5 = np.reshape(item[j],(1082, ))
-    #        else:
-    #            line5 = np.vstack((line5, np.reshape(item[j],(1082, ))))
             
     line6 = line3 > threshold*255
     line6 = 1*line6
-    #print(np.amax(line6))
-    #print(np.amin(line6))
 
-    #if countflag == 0:
-    #    AllPx = line6
-    #else:
-    #    AllPx = np.vstack((AllPx, line6))
     AllPx = np.vstack((AllPx, line6))
+    AllPxF = np.vstack((AllPxF, line3))
     
     countflag = countflag + 1
 
@@ -106,6 +80,7 @@ print('end_data')
 
 AllPxs = AllPx
 np.save("AllPxs.npy",AllPx)
+np.save("AllPxsF.npy",AllPxF)
 # numpy.load("AllPxs.npy")
 sumPxs = np.sum(AllPxs, axis=0)
 uni, unicon = np.unique(sumPxs, return_counts=True)
@@ -113,13 +88,14 @@ print(uni)
 print(unicon)
 if (0 in uni):
     NewPxs = np.delete(AllPxs,np.where(sumPxs == 0),axis=1)
+    NewPxsF = np.delete(AllPxF,np.where(sumPxs == 0),axis=1)
     print(NewPxs.shape)
     rtmpdirtr='data/ibmpg1t1/lrtr'
     rtmpdirte='data/ibmpg1t1/lrte'
     stmpdirtr='data/ibmpg1t1/lstr'
     stmpdirte='data/ibmpg1t1/lste'
     i = 0
-    for line in NewPxs:
+    for line in NewPxsF:
     #    line = np.reshape(line, (2,541))
         im = Image.fromarray(line)
         seed = np.random.random()
