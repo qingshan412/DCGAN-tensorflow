@@ -226,7 +226,7 @@ def visualize(sess, dcgan, config, option):
     make_gif(new_image_set, './samples/test_gif_merged.gif', duration=8)
   elif option == 5:
     values = np.arange(0, 1, 1./config.batch_size)
-    for idx in xrange(1000):
+    for idx in xrange(100000):
       print(" [*] %d" % idx)
       z_sample = np.random.uniform(0, 1, [config.batch_size, dcgan.z_dim])
       #for kdx, z in enumerate(z_sample):
