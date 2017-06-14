@@ -27,8 +27,9 @@ if (0 in uni):
     stmpdirte='data/ibmpg1t1/lste'
     i = 0
     for line in NewPxs:
-        print(line)
-    #    line = np.reshape(line, (2,541))
+        print(line.shape)
+        line = np.reshape(line, (36,1))
+        print(line.shape)
         im = Image.fromarray(line)
         seed = np.random.random()
         if seed < 0.5:
