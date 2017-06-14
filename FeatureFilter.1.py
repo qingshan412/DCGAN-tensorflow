@@ -5,8 +5,10 @@ from os import listdir, path, makedirs
 import numpy as np
 import argparse
 
-
-AllPxs = np.array(np.load("AllPxs.npy"))
+#np.save("AllPxs.npy",AllPx)
+#np.save("AllPxsF.npy",AllPxF)
+# numpy.load("AllPxs.npy")
+AllPxs = np.load("AllPxsF.npy"))
 print('AllPxs:')
 print(AllPxs.dtype)
 print(AllPxs.shape)
