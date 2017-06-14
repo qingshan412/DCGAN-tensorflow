@@ -20,3 +20,14 @@ python main_5.py --dataset ibmpg1t1/strain --input_width=541 --output_width=541 
 
 #python Cover_1.py -s ../data/ibmpg1t1/stest -r sensors/sensor_from_s_1kr_1_0.9
 
+#python SensorCountT.py -s ../data/ibmpg1t1/strain -t 0.8
+#python SensorCountT.py -s ../data/ibmpg1t1/stest -t 0.8
+
+#python SensorCountT.py -s ../data/ibmpg1t1/strain -t 0.7
+#python SensorCountT.py -s ../data/ibmpg1t1/stest -t 0.7
+
+#python SensorCountT.py -s ../data/ibmpg1t1/strain -t 0.6
+#python SensorCountT.py -s ../data/ibmpg1t1/stest -t 0.6
+
+#python SensorCountT.py -s ../data/ibmpg1t1/strain -t 0.5
+#python SensorCountT.py -s ../data/ibmpg1t1/stest -t 0.5
