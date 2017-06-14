@@ -8,7 +8,7 @@ import argparse
 #np.save("AllPxs.npy",AllPx)
 #np.save("AllPxsF.npy",AllPxF)
 # numpy.load("AllPxs.npy")
-AllPxs = np.load("AllPxsF.npy"))
+AllPxs = np.load("AllPxsF.npy")
 print('AllPxs:')
 print(AllPxs.dtype)
 print(AllPxs.shape)
