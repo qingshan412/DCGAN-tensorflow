@@ -8,7 +8,8 @@ import argparse
 #np.save("AllPxs.npy",AllPx)
 #np.save("AllPxsF.npy",AllPxF)
 # numpy.load("AllPxs.npy")
-AllPxs = np.load("AllPxsF.npy")
+AllPxsF = np.load("AllPxsF.npy")
+AllPxs = np.load("AllPxs.npy")
 print('AllPxs:')
 print(AllPxs.dtype)
 print(AllPxs.shape)
@@ -18,7 +19,7 @@ uni, unicon = np.unique(sumPxs, return_counts=True)
 print(uni)
 print(unicon)
 if (0 in uni):
-    NewPxs = np.delete(AllPxs,np.where(sumPxs == 0),axis=1)
+    NewPxs = np.delete(AllPxsF,np.where(sumPxs == 0),axis=1)
     print(NewPxs.shape)
     rtmpdirtr='data/ibmpg1t1/lrtr'
     rtmpdirte='data/ibmpg1t1/lrte'
