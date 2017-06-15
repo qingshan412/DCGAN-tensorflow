@@ -73,7 +73,7 @@ for filename in FNames:
     tmpdir = path.basename(filename).split('.')[-2]
     if not path.exists(tmpdir):
         makedirs(tmpdir)
-    np.save(path.join(tmpdir, 'time_node_array.npy'), time_node_array)
+    np.save(path.join(tmpdir, tmpdir+'_time_node_array.npy'), time_node_array)
 
     rtmpdirtr = path.join(tmpdir, 'rtrain')
     if not path.exists(rtmpdirtr):
