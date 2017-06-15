@@ -8,13 +8,6 @@ import argparse
 import numpy as np
 from PIL import Image
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-t","--Threshold", type=float,
-                    help="threshold for every placement",
-                    default = 0.9)
-args = parser.parse_args()
-threshold = args.Threshold
-
 def Ext(FileName):
     count = 0
     file = open(FileName)#'ibmpg1t1.sol'
@@ -63,8 +56,12 @@ parser = argparse.ArgumentParser(description='Get the original file\'s folder')
 parser.add_argument("-f","--FileFolder", type=str,
                     help="directory for samples",
                     default = '../../SourceData')
+parser.add_argument("-t","--Threshold", type=float,
+                    help="threshold for every placement",
+                    default = 0.9)
 
 args = parser.parse_args()
+threshold = args.Threshold
 FPath = args.FileFolder
 FNames = [ path.join(FPath,f) for f in listdir(FPath) if path.isfile(path.join(FPath,f)) and f.strip().split('.')[-1]=='sol']
 for filename in FNames:
