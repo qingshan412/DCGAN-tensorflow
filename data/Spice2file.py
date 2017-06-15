@@ -115,7 +115,7 @@ for filename in FNames:
         if i == 0:
             AllPxF = line3
         else:
-            AllPxF = np.vstack((AllPx, line3))
+            AllPxF = np.vstack((AllPxF, line3))
 
         im = Image.fromarray(line3)
         ### randomly divide data into train and test datasets
