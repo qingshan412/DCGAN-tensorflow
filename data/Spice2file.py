@@ -8,6 +8,13 @@ import argparse
 import numpy as np
 from PIL import Image
 
+parser = argparse.ArgumentParser()
+parser.add_argument("-t","--Threshold", type=float,
+                    help="threshold for every placement",
+                    default = 0.9)
+args = parser.parse_args()
+threshold = args.Threshold
+
 def Ext(FileName):
     count = 0
     file = open(FileName)#'ibmpg1t1.sol'
@@ -73,7 +80,7 @@ for filename in FNames:
     tmpdir = path.basename(filename).split('.')[-2]
     if not path.exists(tmpdir):
         makedirs(tmpdir)
-    np.save(path.join(tmpdir, tmpdir+'_time_node_array.npy'), time_node_array)
+    #np.save(path.join(tmpdir, tmpdir+'_time_node_array.npy'), time_node_array)
 
     rtmpdirtr = path.join(tmpdir, 'rtrain')
     if not path.exists(rtmpdirtr):
@@ -106,7 +113,13 @@ for filename in FNames:
         linemax = np.amax(line3)
         print(str(i) + ': min- ' + str(linemin) + ' max- ' + str(linemax))
 
-        line3 = np.reshape(line3, (2,541))
+        line3 = np.reshape(line3, (line3.shape[0], 1))
+
+        if i == 0:
+            AllPxF = line3
+        else:
+            AllPxF = np.vstack((AllPx, line3))
+
         im = Image.fromarray(line3)
         ### randomly divide data into train and test datasets
         seed = np.random.random()
@@ -123,4 +136,60 @@ for filename in FNames:
         i = i + 1
     print('Pics for ' + tmpdir + ' finished!')
 
+    countflag = 0
+    for line in AllPxF:
+        print(str(countflag) + ':')
+        line3 = line
+        line6 = line3 > threshold*255
+        line6 = 1*line6
 
+        if countflag == 0:
+            AllPx = line6
+        else:
+            AllPx = np.vstack((AllPx, line6))
+        countflag = countflag + 1
+
+    print('end_quantization')
+
+    sumPxs = np.sum(AllPx, axis=0)
+    uni, unicon = np.unique(sumPxs, return_counts=True)
+    print(uni)
+    print(unicon)
+    if (not 0 in uni):
+        print('No features to remove!')
+        exit(0)
+    NewPxsF = np.delete(AllPxF,np.where(sumPxs == 0),axis=1)
+
+    rtmpdirtr = path.join(tmpdir, 'lrtr')
+    if not path.exists(rtmpdirtr):
+        makedirs(rtmpdirtr)
+    rtmpdirte = path.join(tmpdir, 'lrte')
+    if not path.exists(rtmpdirte):
+        makedirs(rtmpdirte)
+    
+    stmpdirtr = path.join(tmpdir, 'lstr')
+    if not path.exists(stmpdirtr):
+        makedirs(stmpdirtr)
+    stmpdirte = path.join(tmpdir, 'lste')
+    if not path.exists(stmpdirte):
+        makedirs(stmpdirte)
+    
+   
+    i = 0
+    for line in NewPxsF:
+        line3 = np.reshape(line, (line.shape[0], 1))
+        im = Image.fromarray(line3)
+        ### randomly divide data into train and test datasets
+        seed = np.random.random()
+        if seed < 0.5:
+            im.save(path.join(rtmpdirtr, str(i) + '.png'))
+        else:
+            im.save(path.join(rtmpdirte, str(i) + '.png'))
+        ### sequentially divide data into train and test datasets
+        if i%2 < 1:
+            im.save(path.join(stmpdirtr, str(i) + '.png'))
+        else:
+            im.save(path.join(stmpdirte, str(i) + '.png'))
+        
+        i = i + 1
+    print('Pics for filtered' + tmpdir + ' finished!')
