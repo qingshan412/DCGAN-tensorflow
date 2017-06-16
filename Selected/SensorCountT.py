@@ -60,26 +60,33 @@ for Pic in PicFiles:
 
 print('end_data')
 
+fo0 = open(path.join('process','process_sensor_from_'+ path.basename(args.SampleDir) + '_' + str(threshold)),'w')
+
 AllPxs = AllPx
 Places = []
 for i in xrange(Nsensor):
     ### Check Whether There Is Noise Left
     if AllPxs.size < 1 or (not np.any(np.unique(np.sum(AllPxs, axis=0)))):
         print('All covered')
+        fo0.write('All covered')
         break
     print(str(i+1) + '-th sensor...')
+    fo0.write(str(i+1) + '-th sensor...')
     ### Select A Sensor
     uni, unicon = np.unique(np.sum(AllPxs, axis=0), return_counts=True)
     print(uni)
     print(unicon)
+    fo0.write(','.join(list(uni.astype(str))))
+    fo0.write(','.join(list(unicon.astype(str))))
     #print(np.unique(np.sum(AllPxs, axis=0)))
     idxc = np.argmax(np.sum(AllPxs, axis=0))
     print(idxc)
+    fo0.write(','.join(list(idxc.astype(str))))
     Places.append(str(int(idxc)))
     col = AllPxs[:,idxc]
     idxt = np.where(col==1)
     AllPxs = np.delete(AllPxs, idxt[0], 0)
-
+fo0.close()
 ### Store Results
 if not path.exists(args.ResultDir):
     makedirs(args.ResultDir)
