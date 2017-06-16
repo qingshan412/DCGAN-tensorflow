@@ -97,5 +97,16 @@ for i in xrange(len(Places)):
     idxt = np.where(col==1)
     AllPxs = np.delete(AllPxs, idxt[0], axis=0)
 
+print('final:')
+fo.write('final:\n')
+sumt = np.sum(AllPxs, axis=0)
+uni, unicon = np.unique(sumt, return_counts=True)
+fo.write(','.join(list(uni.astype(str))))
+fo.write('\n')
+fo.write(','.join(list(unicon.astype(str))))
+fo.write('\n')
+print(uni)
+print(unicon)
+
 fo.close()
 exit(0)

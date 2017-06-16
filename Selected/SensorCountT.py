@@ -86,6 +86,19 @@ for i in xrange(Nsensor):
     col = AllPxs[:,idxc]
     idxt = np.where(col==1)
     AllPxs = np.delete(AllPxs, idxt[0], 0)
+
+
+print('final:')
+fo0.write('final:\n')
+sumt = np.sum(AllPxs, axis=0)
+uni, unicon = np.unique(sumt, return_counts=True)
+fo0.write(','.join(list(uni.astype(str))))
+fo0.write('\n')
+fo0.write(','.join(list(unicon.astype(str))))
+fo0.write('\n')
+print(uni)
+print(unicon)
+
 fo0.close()
 ### Store Results
 if not path.exists(args.ResultDir):
