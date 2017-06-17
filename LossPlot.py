@@ -14,7 +14,7 @@ parser.add_argument("-s","--SourceDir", type=str,
                     default = 'rec')
 
 args = parser.parse_args()
-PicPath = args.RawDir
+PicPath = args.SourceDir
 
 Files = [ f for f in listdir(PicPath) if path.isfile(path.join(PicPath,f))]
 
